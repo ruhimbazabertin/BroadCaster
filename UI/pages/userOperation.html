@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>broadcaster </title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+<header>
+    <div class="container">
+        <div id="branding">
+           <img src="../img/broadcaster.png">
+            <h1><b>Broadcaster</b></h1>
+        </div>
+
+        <nav>
+            <ul>
+             <li class="current"><a href="../pages/userOperation.html">CreateNewRecord</a></li>
+                <li><a href="../pages/viewRedFlag.html">ViewRedFlag</a></li>
+                <li><a href="../pages/ViewIntervention.html">ViewIntervention</a></li>
+                <li><a href="../pages/UserProfile.html">My Profile</a></li>
+                <li><a href="../index.html">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+    </header>
+       
+    <section id="report">  
+            <h3>Create New Red-Flag Record / Intervention Record</h3>
+    </section>
+    <hr>
+     <!-- Section -->
+       <section>
+           <center>
+               <div class="operation-form">
+                <form action="../pages/viewRedFlag.html">
+                        <div class="red-flag-record">
+                      
+                          <label for="email"><b>CreatedOn</b></label>
+                          <input type="date" placeholder="Enter Creation Date" required>
+                      
+                          <label for="title"><b>Record Title</b></label>
+                          <input type="text" placeholder="Enter Title of Record" required>
+                      
+                          <label for="type"><b>Record type</b></label>
+                          <select name="type">
+                                <option value="1">RedFlag</option>
+                                <option value="2">Intervention</option>
+                            </select>
+
+                          <label for="location"><b><button>Generate</button>Location</b></label>
+                          <input type="text" placeholder="Generated Latitude" readonly="true" required>
+                          <input type="text" placeholder="Generated Longitude" readonly="true" required>
+
+                          <label for="status"><b>Record Status</b></label>
+                          <select name="status">
+                              <option value="1">Draft</option>
+                              <option value="2">Under Investigation</option>
+                              <option value="3">Resolved</option>
+                              <option value="4">Rejected</option>
+                          </select>
+                           
+                          <label for="image"><b>Record Image</b></label>
+                          <input type="file" required>
+
+                          <label for="video"><b>Record Video</b></label>
+                          <input type="file" required>
+
+                          <label for="comment"><b>Comment</b></label>
+                          <textarea name="textarea"
+   rows="10" cols="43">Write something about the record to support your claim.</textarea>
+                           <button>Send Record</button>
+
+                          </div>
+                          <hr>
+                      </form>
+                      
+          </center>  
+        </div>
+      </section>
+      <hr>
+       <!-- End Section -->
+        <footer>
+         <p class="foo" > Copyright &copy; 2019. Broadcaster</p>
+            </footer>
+</body>
+
+</html>
