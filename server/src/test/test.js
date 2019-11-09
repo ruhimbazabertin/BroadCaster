@@ -66,6 +66,51 @@ it('should not be able to signup when some filled are missing', (done) => {
     done();  
 
 });
+//signin test
+it('should login', (done) => {
+    const user = 
+    {
+     userName: 'bertin',
+     password: 'bertin123'
+    };
+    chai.request(server)
+        .post('/api/v1/signIn')
+        .send(user)
+        .end((error, res) => {
+            res.status.should.be.equal(200);
+        });
+       done();
+});
+//user should not be able to login if userName or password is not correct.
+it('should not be able to login if userName is not correct', (done) =>{
+    const user =
+      {
+          userName: 'bertin',
+          password: 'jeanete123'
+      };
+      chai.request(server)
+          .post('/api/v1/signIn')
+          .send(user)
+          .end((error, res) => {
+              res.status.should.be.equal(401);
+          });
+        done();
+})
+//user should not be able to login if password is not correct.
+it('should not be able to login if userName is not correct', (done) =>{
+    const user =
+      {
+          userName: 'jeanete',
+          password: 'bertin123'
+      };
+      chai.request(server)
+          .post('/api/v1/signIn')
+          .send(user)
+          .end((error, res) => {
+              res.status.should.be.equal(401);
+          });
+        done();
+})
 
 
 });

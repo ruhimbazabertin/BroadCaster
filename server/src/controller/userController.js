@@ -30,7 +30,25 @@ class UserController {
 
     });
   }
-
+  //signin
+// User signIn
+static login(req, res){
+  const {userName, password} = req.body;
+  const findUser = userModel.find(user => user.userName === userName);
+  if(findUser){
+    const verifyPassword = bcrypt.compareSync(req.body.password, findUser.password);
+    if(verifyPassword){
+      const token = jwt.sign({id: findUser.id, email: findUser.email, userType: findUser.userType}, process.env.SECRETY_KEY);
+      return res.status(200).json({
+        status: 200,
+         message: `Logged in as ${findUser.firstName}`,
+         data: {token} 
+       });
+     }
+     return res.status(401).json({status: 401, error: 'Incorrect UserName or Password' });    
+   }
+   return res.status(401).json({status: 401, error: 'Incorrect UserName or Password' });
+}
 }
 
 export default UserController;
