@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node BroadCaster/server/src/app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 10000 --exit  BroadCaster/server/src/test/*"
+    "dev": "nodemon --exec babel-node server/src/app.js",
+    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 10000 --exit  server/src/test/*"
   },
   "keywords": [],
   "author": "Bertin",
