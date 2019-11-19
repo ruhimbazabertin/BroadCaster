@@ -123,6 +123,30 @@ class RedFlag {
     }
     return res.status(400).json({ status: 400, message: 'location can not be empty' });
   }
+
+  // Delete a specific redFlag
+  static deleteSpecificRedFlag(req, res) {
+    const { id } = req.params;
+    const findRedFlag = redFlag.find((redFlag) => redFlag.id === parseInt(id) && redFlag.status === 'draft');
+    if (findRedFlag) {
+      const findUser = userModel.find((user) => user.email === req.user.email);
+      const userId = findUser.id;
+      if (findRedFlag.userId === userId) {
+        const index = redFlag.indexOf(findRedFlag);
+        redFlag.splice(index, 1);
+        return res.status(200).json({
+          status: 200,
+          data: [{
+            id,
+            message: 'redFlag record has been deleted',
+          }],
+
+        });
+      }
+      return res.status(403).json({ status: 403, message: 'Only the user who created the ​red-flag is the one to delete the record.' });
+    }
+    return res.status(404).json({ status: 404, message: 'The redFlag is not found or is already marked by authorities.' });
+  }
 }
 
 export default RedFlag;

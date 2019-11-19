@@ -325,4 +325,48 @@ describe('BroadCaster Api', () => {
       });
     done();
   });
+  // Only the user who created the ​red-flag is the one to delete the record.
+  it('should not be able to delete the redFlag which is not created by you', (done) => {
+    chai.request(server)
+      .delete('/api/v1/red-flags/3')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(403);
+        res.body.message.should.be.equal('Only the user who created the ​red-flag is the one to delete the record.');
+      });
+    done();
+  });
+  // Only the user who created the ​red-flag ​record can delete the record.
+  //   it('should delete a specific redFlag record', (done) => {
+  //     chai.request(server)
+  //       .delete('/api/v1/red-flags/3')
+  //       .set('token', userToken)
+  //       .end((error, res) => {
+  //         res.status.should.be.equal(200);
+  //       });
+  //     done();
+  //   });
+  // user should not be able to delete a specific redFlag record if it is not present
+  it('should not be able to delete a record if the record does not present', (done) => {
+    chai.request(server)
+      .delete('/api/v1/red-flags/25')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(404);
+        res.body.message.should.be.equal('The redFlag is not found or is already marked by authorities.');
+      });
+    done();
+  });
+
+  //  User should not be able to delete the record if that is not the one who created it.
+  it('should not be able to delete the record if you are not the one to create it', (done) => {
+    chai.request(server)
+      .delete('/api/v1/red-flags/1')
+      .set('token', userToken)
+      .send((error, res) => {
+        res.status.should.be.equal(403);
+      });
+    done();
+  });
+
 });
