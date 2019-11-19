@@ -219,5 +219,59 @@ describe('BroadCaster Api', () => {
       });
     done();
   });
-
+  // comment should not be possible to be updated with empty content
+  it('should not be possible to update the comment which is empty', (done) => {
+    const newRedFlag = {
+      title: 'corruption',
+      type: 'redFlag',
+      comment: '',
+      location: 'Gasabo',
+      status: 'draft',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/3/comment')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(400);
+        res.body.message.should.be.equal('comment can not be empty');
+      });
+    done();
+  });
+  // user should  be able to update comment if redFlag status is draft
+  it('should be able to update comment if redFlag status is draft', (done) => {
+    const newRedFlag = {
+      title: 'corruption',
+      type: 'redFlag',
+      comment: 'this corruption causes the poverty',
+      location: 'Gasabo',
+      status: 'draft',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/3/comment')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(200);
+      });
+    done();
+  });
+  // user should not be able to update comment if redFlag is not present or redFlag is already marked
+  it('should not be able to update comment if redFlag is not present or redFlag is already marked', (done) => {
+    const newRedFlag = {
+      title: 'corruption',
+      type: 'redFlag',
+      comment: 'This is a huge disaster',
+      location: 'Gasabo',
+      status: 'solved',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/35/comment')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(404);
+      });
+    done();
+  });
 });
