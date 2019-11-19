@@ -64,6 +64,36 @@ class RedFlag {
       },
     );
   }
+
+  // update comment
+  static updateComment(req, res) {
+    if (req.body.comment) {
+      const { comment } = req.body;
+      const { id } = req.params;
+      const findRedFlag = redFlag.find((redFlag) => redFlag.id === parseInt(id) && redFlag.status === 'draft');
+      if (findRedFlag) {
+        const updateComment = {
+          id: findRedFlag.id,
+          title: findRedFlag.title,
+          type: findRedFlag.type,
+          comment,
+          location: findRedFlag.location,
+          status: findRedFlag.status,
+        };
+        redFlag[redFlag.indexOf(findRedFlag)] = updateComment;
+        return res.status(200).json({
+          status: 200,
+          data: {
+            id: findRedFlag.id,
+            message: 'Updated RedFlag record\s comment',
+          },
+        });
+      }
+      return res.status(404).json({ status: 404, message: 'The redFlag is not found or is already marked by authorities.' });
+    }
+    return res.status(400).json({ status: 400, message: 'comment can not be empty' });
+  }
+
 }
 
 export default RedFlag;
