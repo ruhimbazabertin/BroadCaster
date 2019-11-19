@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec babel-node server/src/app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 10000 --exit  server/src/test/*"
+    "dev": "nodemon --exec babel-node server/app.js",
+    "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 10000 --exit  server/test/*",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "Bertin",
@@ -23,10 +24,12 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.0",
+    "moment": "^2.24.0",
     "nodemon": "^1.19.1",
     "nyc": "^14.1.1"
   },
   "devDependencies": {
+    "coveralls": "^3.0.7",
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2"

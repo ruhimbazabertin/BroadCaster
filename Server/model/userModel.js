@@ -29,7 +29,7 @@ const user = [
         phoneNumber : '078176571',
         userName    : 'alphonsine',
         password    : bcrypt.hashSync('alphonsine123'),
-        userType    : 'admin'
+        userType    : 'user'
     },
     {
         id: 4,
@@ -39,7 +39,7 @@ const user = [
         phoneNumber : '078613090',
         userName    : 'antoine',
         password    : bcrypt.hashSync('antoine123'),
-        userType    : 'admin'
+        userType    : 'user'
     },
 ]
 
