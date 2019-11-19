@@ -30,7 +30,19 @@ class RedFlag {
     });
 
   }
-
+  // view All RedFlag Created
+  static viewRedFlag(req, res) {
+    const records = [];
+    redFlag.forEach((record) => {
+      records.push(record);
+    });
+    return res.status(200).json(
+      {
+        status: 200,
+        data: records,
+      },
+    );
+  }
 
 }
 
