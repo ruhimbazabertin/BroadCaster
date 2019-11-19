@@ -94,6 +94,35 @@ class RedFlag {
     return res.status(400).json({ status: 400, message: 'comment can not be empty' });
   }
 
+  // Update location
+  static updateLocation(req, res) {
+    const { id } = req.params;
+    if (req.body.location) {
+      const { location } = req.body;
+      const findRedFlag = redFlag.find((redFlag) => redFlag.id === parseInt(id));
+      if (findRedFlag && findRedFlag.status === 'draft') {
+        const updateLocation = {
+          id: findRedFlag.id,
+          title: findRedFlag.title,
+          type: findRedFlag.type,
+          comment: findRedFlag.comment,
+          location,
+          status: findRedFlag.status,
+
+        };
+        redFlag[redFlag.indexOf(findRedFlag)] = updateLocation;
+        return res.status(200).json({
+          status: 200,
+          data: [{
+            id: findRedFlag.id,
+            message: "Updated redFlag record's location",
+          }],
+        });
+      }
+      return res.status(404).json({ status: 404, message: 'The redFlag is not found or is already marked by authorities.' });
+    }
+    return res.status(400).json({ status: 400, message: 'location can not be empty' });
+  }
 }
 
 export default RedFlag;

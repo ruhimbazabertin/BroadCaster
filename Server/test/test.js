@@ -274,4 +274,55 @@ describe('BroadCaster Api', () => {
       });
     done();
   });
+  // location should not be possible to be updated with empty content
+  it('should not be possible to update the location with empty content', (done) => {
+    const newRedFlag = {
+      title: 'road',
+      type: 'Intervation',
+      comment: 'This is too much',
+      location: '',
+      status: 'draft',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/3/location')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(400);
+        res.body.message.should.be.equal('location can not be empty');
+      });
+    done();
+  });
+  // user should not be able to update the location of the record which is not present && the record status which is not draft
+  it('should not be possible to update the location of record which is not present and the record status which is not draft', (done) => {
+    const newRedFlag = {
+      title: 'road',
+      type: 'Intervation',
+      comment: 'This is too much',
+      location: '-1.643883, 30.40773',
+      status: 'rejected',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/35/location')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(404);
+      });
+    done();
+  });
+  // user should be able to update the location of redFlag record
+  it('should be able to upate the location of redFlag record', (done) => {
+    const newRedFlag = {
+      location: '-1.8935, 30.27849',
+    };
+    chai.request(server)
+      .patch('/api/v1/red-flags/3/location')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(200);
+      });
+    done();
+  });
 });
