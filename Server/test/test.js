@@ -166,4 +166,25 @@ describe('BroadCaster Api', () => {
       });
     done();
   });
+  // view all redFlags created
+  it('should be able to view all redFlags created', (done) => {
+    chai.request(server)
+      .get('/api/v1/red-flags')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(200);
+      });
+    done();
+  });
+  // user should not be able to view all redFlags created without aunthenticate
+  it('should not able to view all redFlags created if you are not aunthenticate', (done) => {
+    chai.request(server)
+      .get('/api/v1/red-flags')
+      .set('token', wrongToken)
+      .end((error, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('Authentication failed');
+      });
+    done();
+  });
 });
