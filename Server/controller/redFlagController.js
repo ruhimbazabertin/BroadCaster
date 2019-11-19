@@ -30,6 +30,7 @@ class RedFlag {
     });
 
   }
+
   // view All RedFlag Created
   static viewRedFlag(req, res) {
     const records = [];
@@ -44,6 +45,25 @@ class RedFlag {
     );
   }
 
+  // View Specific redFlag
+  static viewSpecificRedFlag(req, res) {
+    const { id } = req.params;
+    const findRedFlag = redFlag.find((redFlag) => redFlag.id === parseInt(id));
+    if (findRedFlag) {
+      return res.status(200).json(
+        {
+          status: 200,
+          data: findRedFlag,
+        },
+      );
+    }
+    res.status(404).json(
+      {
+        status: 404,
+        error: 'The RedFlag you are looking for is not available',
+      },
+    );
+  }
 }
 
 export default RedFlag;

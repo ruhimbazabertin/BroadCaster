@@ -187,4 +187,37 @@ describe('BroadCaster Api', () => {
       });
     done();
   });
+  // view a specific redFlag created
+  it('should be able to view a specific redFlag created', (done) => {
+    chai.request(server)
+      .get('/api/v1/red-flags/2')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(200);
+      });
+    done();
+  });
+  // User should not view a specific redFlag created without aunthenticate
+  it('should not be able to view a specific redFlag created without aunthenticate', (done) => {
+    chai.request(server)
+      .get('/api/v1/red-flags/2')
+      .set('token', wrongToken)
+      .end((error, res) => {
+        res.status.should.be.equal(403);
+        res.body.error.should.be.equal('Authentication failed');
+      });
+    done();
+  });
+  // User should not view a specific redFlag if that redFlag is not availabe.
+  it('should not be able to view a specific redFlag if that redFlag is not yet created.', (done) => {
+    chai.request(server)
+      .get('/api/v1/red-flags/50')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(404);
+        res.body.error.should.be.equal('The RedFlag you are looking for is not available');
+      });
+    done();
+  });
+
 });
