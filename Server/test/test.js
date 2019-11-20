@@ -337,15 +337,40 @@ describe('BroadCaster Api', () => {
     done();
   });
   // Only the user who created the ​red-flag ​record can delete the record.
-  //   it('should delete a specific redFlag record', (done) => {
-  //     chai.request(server)
-  //       .delete('/api/v1/red-flags/3')
-  //       .set('token', userToken)
-  //       .end((error, res) => {
-  //         res.status.should.be.equal(200);
-  //       });
-  //     done();
-  //   });
+  it('should delete a specific redFlag record', (done) => {
+    const newRedFlag = {
+      title: 'corruption',
+      type: 'redFlag',
+      comment: 'this corruption was very dangerous',
+      location: 'Gasabo',
+      status: 'draft',
+    };
+    chai.request(server)
+      .post('/api/v1/redFlags')
+      .set('token', userToken)
+      .send(newRedFlag)
+      .end((error, res) => {
+        res.status.should.be.equal(201);
+        res.body.message.should.be.equal('RedFlag created successifully');
+      });
+    chai.request(server)
+      .delete('/api/v1/red-flags/6')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(200);
+      });
+    done();
+  });
+  // User should not be able to delete the record which is not draft.
+  it('should not be able to delete the record which is not draft', (done) => {
+    chai.request(server)
+      .delete('/api/v1/red-flags/5')
+      .set('token', userToken)
+      .end((error, res) => {
+        res.status.should.be.equal(404);
+      });
+    done();
+  });
   // user should not be able to delete a specific redFlag record if it is not present
   it('should not be able to delete a record if the record does not present', (done) => {
     chai.request(server)
