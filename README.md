@@ -83,7 +83,7 @@ Corruption is a huge bane to Africa’s development. African countries must deve
   
   # Run the server
   
-  > npm start
+  > npm run dev
   
   # Run the test
   
