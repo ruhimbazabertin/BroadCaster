@@ -13,10 +13,9 @@ body{
 
 /*Global */
 .container{
-    width: 90%;
-    margin: auto;
-    overflow: hidden;
-    
+  width: 90%;
+  margin: auto;
+  overflow: hidden;    
 }
 
 ul{
@@ -188,6 +187,20 @@ footer{
     padding-top: 11.5%;
     font-weight: bold;
 }
+#loginButton{
+  width: 100%;
+  margin-left: 3%;
+  background-color: #009689;
+  color: white;
+  border:1px solid #CCC
+}
+#registration_button{
+  width: 100%;
+  margin-left: 3%;
+  background-color: #009689;
+  color: white;
+  border:1px solid #CCC
+}
 .star{
   color: red;
 }
@@ -202,9 +215,12 @@ form {
     border:1px solid #CCC
   }
   button {
-    padding:10px;
-    background-color: cornflowerblue;
+    padding:12px;
+    background-color:  #009689;
+    color: white;
     cursor: pointer;
+    margin-top: 10px;
+
 
   }
 
@@ -311,11 +327,30 @@ hr{
 .red-flag-record{
     height: 500px;
 }
+#create_location{
+  padding:10px;
+  background-color:  #009689;
+  color: white;
+  cursor: pointer;
+  margin-top: 0px;
+}
+#send{
+  padding:12px;
+  background-color:  #009689;
+  color: white;
+  cursor: pointer;
+  
+}
 /* end of css for userOperation page*/
 
  /* css for viewRedFlag page*/
  .view-red-flag{
   height: 442px;
+ }
+ #view-record-footer{
+  width:99.2%;
+  position:fixed;
+  bottom:0;
  }
  /* End of css for viewRedFlag page*/
 
