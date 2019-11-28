@@ -1,6 +1,9 @@
 import express from 'express';
+import dotenv from 'dotenv';
 import userRoute from './router/userRouter';
 import redFlagRoute from './router/redFlagRouter';
+
+dotenv.config();
 
 const app = express();
 
