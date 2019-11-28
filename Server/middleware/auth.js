@@ -11,13 +11,13 @@ const auth = (req, res, next) => {
     if (validUserToken) {
       req.user = userToken;
       next();
-    }else{
-      return res.status(401).json({status: 401, message: "Invalid token"});
+    } else {
+      return res.status(401).json({ status: 401, error: 'Access dinied' });
     }
   } catch (error) {
-    return res.status(403).json({
-      status: 403,
-      error: 'Authentication failed',
+    return res.status(401).json({
+      status: 401,
+      error: 'Invalid token',
     });
   }
 };

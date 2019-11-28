@@ -15,7 +15,7 @@ class UserController {
     } = req.body;
 
     const idNumber = userModel.length + 1;
-    const token   = generateToken.generate(email, userType);
+    const token = generateToken.generate(email, userType);
     const hashedPassword = bcrypt.hashSync(password);
     const newUser = userSchema.validate({
       id: idNumber, firstName, lastName, email, phoneNumber, userName, password: hashedPassword, userType,
@@ -34,7 +34,6 @@ class UserController {
         email,
         phoneNumber,
         userName,
-        password: hashedPassword,
         userType,
       },
 
@@ -49,8 +48,8 @@ class UserController {
     if (findUser) {
       const verifyPassword = bcrypt.compareSync(req.body.password, findUser.password);
       if (verifyPassword) {
-        const userType = findUser.userType;
-        const token   = generateToken.generate(email, userType);
+        const {userType} = findUser;
+        const token = generateToken.generate(email, userType);
         return res.status(200).json({
           status: 200,
           message: `Logged in as ${findUser.firstName}`,
