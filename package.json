@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node Server/app.js",
+    "start": "babel-node Server/app.js",
     "build": "babel Server -d dist && node dist/app.js",
     "dev": "nodemon --exec babel-node server/app.js",
     "test": "nyc --reporter=html --reporter=text mocha --require babel-register --timeout 10000 --exit  Server/test/*",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@hapi/joi": "^15.1.1",
     "babel-cli": "^6.26.0",
+    "babel-node": "0.0.1-security",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
